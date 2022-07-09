@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {}
+
+.wrapper {
+    width: 600px;
+    height: 200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: solid #5B6DCD 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.wrapper__counter {
+    margin: 0 auto;
+    width: 100px;
+    height: 50px;
+}
+
+.wrpapper-button {
+    width: 100px;
+    height: 50px;
+}
+
+.wrapper__game {
+    border: solid #5B6DCD 5px;
+    margin: 0 auto;
+    width: 70%;
+    height: 35px;
+}
+
+.container-btn {
+    display: flex;
+    flex-direction: row;
+}
+
+.postValueBtn {
+    width: 75px;
+    height: 25px;
+}
+
+.container-post {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
