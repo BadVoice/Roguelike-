@@ -1,102 +1,71 @@
 const renderLvl = () => {
-    const postValueBtn = document.querySelector('.postValueBtn')
-    const input = document.querySelector('.input')
-    const startRenderGame = document.querySelector('.start')
-    const endRenderGame = document.querySelector('.end')
-    const wrapperRenderGame = document.querySelector('.hidden')
-    let getAnswer
-    let randomValue
+    const postValueBtn = document.querySelector('.postValueBtn'),
+        input = document.querySelector('.input'), // значение передающиеся в postValueBtn
+        startRenderGame = document.querySelector('.start'),
+        endRenderGame = document.querySelector('.end'),
+        wrapperRenderGame = document.querySelector('.hidden')
+    let answer,
+        randomValue
 
-    let div = document.createElement('div')
-    let divFalse = document.createElement('div')
-    let divTrue = document.createElement('div')
+    let lvl = 3,
+        lvlCounter = 1,
+        HP = 3,
+        min = 1
 
-    startRenderGame.addEventListener('click', () => {
-        settingGame = {
-            lvl: 3,
-            lvlCounter: 1,
-            HP: 3,
-            min: 1
-        }
-        renderLvl()
-    })
-
-    endRenderGame.addEventListener('click', () => {
-        div.remove()
-    })
+    let div = document.createElement('div'),
+        divFalse = document.createElement('div'),
+        divTrue = document.createElement('div')
 
     postValueBtn.addEventListener('click', () => {
-        getAnswer = +input.value
-        gameScript()
-        console.log(getAnswer)
-        renderLvl()
+        answer = +input.value
+        loop()
     })
-
-    let settingGame = {
-        lvl: 3,
-        lvlCounter: 1,
-        HP: 3,
-        min: 1
-    }
-
-    let getValue = { getLvl: [] }
 
     const renderLvl = () => {
 
-        div.innerHTML = `
-        <div>  Lvl ${settingGame.lvlCounter} угадайте от 1 до ${settingGame.lvl} ваши жизни ${'🧡'.repeat(settingGame.HP)} </div `
-        wrapperRenderGame.append(div)
-
-    }
-
-    const renderLvlTrue = () => {
-        divTrue.innerHTML = `
-        <div> Вы прошли ${settingGame.lvlCounter}Lvl. Загаданное число ${settingGame.randomValue}, ваше ${settingGame.answer} </div `
-            // if (answer === randomValue) {
-            //     wrapperRenderGame.append(divTrue)
-            // }
-    }
-
-
-    const renderLvlFalse = () => {
-        divFalse.innerHTML = `
-            <div> Вы не прошли ${settingGame.lvlCounter}Lvl. Загаданное число ${settingGame.randomValue}, ваше ${settingGame.answer} </div `
-            // if (answer !== randomValue) {
-            //     div.remove()
-            //     wrapperRenderGame.append(divFalse)
-            // }
-    }
-
-
-    const gameScript = () => {
-        randomValue = Math.floor(Math.random() * (settingGame.min) * settingGame.lvl)
-            // if (settingGame.HP > 0) {
-        console.log(randomValue)
-            // }
-        if (randomValue !== getAnswer) {
-            settingGame.HP = settingGame.HP - settingGame.damage
-            alert(`Загаданное число ${randomValue}, ваше ${getAnswer}`)
+        div.innerHTML = ` 
+            Lvl ${lvlCounter} угдайте число 1 до ${lvl} ${'❤'.repeat(HP)}
+    
+        `
+        if (randomValue !== answer) {
+            div.remove()
+            wrapperRenderGame.append(div)
         } else {
-            renderLvlTrue()
-            settingGame.lvlCounter++
-                settingGame.lvl++
-                settingGame.HP = 3
-            alert(`Вы угадали загаданное число ${randomValue}, ваше ${getAnswer} `)
+            wrapperRenderGame.append(div)
         }
 
-        if (settingGame.HP === 0) {
+        if (HP === 0) {
+            div.remove()
+        }
+    }
+
+    const loop = () => {
+        damage = 1
+        let randomValue = Math.floor(Math.random() * (min) * lvl)
+        console.log(HP)
+
+        if (HP === 0) {
             alert('Закончились жизни')
-
+            renderLvl()
         }
 
-        if (settingGame.lvlCounter === 6) {
+        if (lvlCounter === 6) {
             alert('Прошел игру')
             return true
         }
 
+        if (randomValue !== answer) {
+            HP = HP - damage
+            alert(`Загаданное число ${randomValue}, ваше ${answer}`)
+            renderLvl()
+
+        } else {
+            alert(`Вы угадали загаданное число ${randomValue}, ваше ${answer} `)
+            lvlCounter++
+            lvl++
+            HP = 3
+            renderLvl()
+        }
     }
-    gameScript()
-
-
 }
 renderLvl()
